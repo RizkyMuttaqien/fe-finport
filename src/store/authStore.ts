@@ -16,7 +16,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     },
     login: async (email: string, password: string): Promise<boolean> => {
         try {
-            const res = await axios.post("https://be-finport.vercel.app/api/login", { email, password }, { withCredentials: true, validateStatus: (status) => status < 500 });
+            const res = await axios.post("https://be-finport.vercel.app/api/login", { email, password }, { withCredentials: false, validateStatus: (status) => status < 500 });
 
             if (res.status !== 200 || res.data.error) {
                 await Swal.fire({
@@ -51,7 +51,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 
     register: async (email: string, password: string): Promise<boolean> => {
         try {
-            const res = await axios.post("https://be-finport.vercel.app/api/register", { email, password }, { withCredentials: true, validateStatus: (status) => status < 500 });
+            const res = await axios.post("https://be-finport.vercel.app/api/register", { email, password }, { withCredentials: false, validateStatus: (status) => status < 500 });
 
             if (res.status !== 200 || res.data.error) {
                 await Swal.fire({
@@ -86,7 +86,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 
     logout: async () => {
         try {
-            await axios.post("https://be-finport.vercel.app/api/logout", {}, { withCredentials: true });
+            await axios.post("https://be-finport.vercel.app/api/logout", {}, { withCredentials: false });
         } catch (err) {
             console.error(err);
         } finally {

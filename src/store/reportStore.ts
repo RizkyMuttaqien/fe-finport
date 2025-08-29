@@ -16,7 +16,7 @@ export const useReportStore = create<ReportState>((set, get) => ({
             const token = useAuthStore.getState().token;
             const res = await axios.get("https://be-finport.vercel.app/api/reports", {
                 headers: { Authorization: `Bearer ${token}` },
-                withCredentials: true,
+                withCredentials: false,
                 validateStatus: (status) => status < 500,
             });
             if (res.status === 401) {
@@ -50,7 +50,7 @@ export const useReportStore = create<ReportState>((set, get) => ({
             const token = useAuthStore.getState().token;
             const res = await axios.post("https://be-finport.vercel.app/api/reports", data, {
                 headers: { Authorization: `Bearer ${token}` },
-                withCredentials: true,
+                withCredentials: false,
                 validateStatus: (status) => status < 500,
             });
             if (res.status === 401) {
@@ -77,7 +77,7 @@ export const useReportStore = create<ReportState>((set, get) => ({
             const token = useAuthStore.getState().token;
             const res = await axios.put(`https://be-finport.vercel.app/api/reports/${id}`, data, {
                 headers: { Authorization: `Bearer ${token}` },
-                withCredentials: true,
+                withCredentials: false,
                 validateStatus: (status) => status < 500,
             });
             if (res.status === 401) {
@@ -105,7 +105,7 @@ export const useReportStore = create<ReportState>((set, get) => ({
             const token = useAuthStore.getState().token;
             const res = await axios.delete(`https://be-finport.vercel.app/api/reports/${id}`, {
                 headers: { Authorization: `Bearer ${token}` },
-                withCredentials: true,
+                withCredentials: false,
                 validateStatus: (status) => status < 500,
             });
             if (res.status === 401) {

@@ -22,7 +22,7 @@ export const useCompareStore = create<CompareState>(() => ({
                 "https://be-finport.vercel.app/api/check",
                 { first_text, second_text, is_sensitive },
                 {
-                    withCredentials: true,
+                    withCredentials: false,
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
