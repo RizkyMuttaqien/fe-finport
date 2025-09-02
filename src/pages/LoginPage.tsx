@@ -16,8 +16,8 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="min-h-screen flex flex-col md:flex-row">
-            <div className="hidden md:flex w-1/2 bg-black text-white flex-col items-center justify-center p-12 gap-4">
+        <div className="min-h-screen flex flex-col bg-gray-900 md:flex-row">
+            <div className="hidden md:flex w-1/2  text-white flex-col items-center justify-center p-12 gap-4">
                 <div className="grid grid-cols-2 gap-4">
                     <div className=""></div>
                     <div className="bg-purple-400 p-6 rounded-lg flex items-center justify-center aspect-square">

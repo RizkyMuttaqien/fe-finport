@@ -12,6 +12,7 @@ export default function ReportPage() {
         title: "",
         income: 0,
         expense: 0,
+        balance: 0,
         report_date: new Date().toISOString().split("T")[0],
     });
 
@@ -27,6 +28,7 @@ export default function ReportPage() {
                 title: report.title,
                 income: report.income,
                 expense: report.expense,
+                balance: report.balance,
                 report_date: report.report_date.split("T")[0],
             });
         } else {
@@ -35,6 +37,7 @@ export default function ReportPage() {
                 title: "",
                 income: 0,
                 expense: 0,
+                balance: 0,
                 report_date: new Date().toISOString().split("T")[0],
             });
         }
@@ -65,7 +68,15 @@ export default function ReportPage() {
             await deleteReport(id);
         }
     };
+    const formatCurrency = (value: number | string) => {
+        if (!value) return "Rp 0";
+        const numberValue = typeof value === "string" ? Number(value.replace(/\D/g, "")) : value;
+        return "Rp " + numberValue.toLocaleString("id-ID");
+    };
 
+    const parseCurrency = (value: string) => {
+        return Number(value.replace(/\D/g, ""));
+    };
     return (
         <div className="min-h-screen p-6 bg-gray-900 text-white pt-25">
             <div className="container mx-auto">
@@ -76,15 +87,16 @@ export default function ReportPage() {
                     </button>
                 </div>
 
-                {loading && <p className="text-gray-400">Loading...</p>}
+                {loading && <p className="text-gray-400 text-center w-full">Loading...</p>}
                 <div className="w-full overflow-x-auto">
                     <table className="w-full border-collapse border border-gray-700">
                         <thead className="bg-gray-800">
                             <tr>
-                                <th className="border border-gray-700 px-3 py-2">ID</th>
+                                <th className="border border-gray-700 px-3 py-2">No</th>
                                 <th className="border border-gray-700 px-3 py-2">Title</th>
                                 <th className="border border-gray-700 px-3 py-2">Income</th>
                                 <th className="border border-gray-700 px-3 py-2">Expense</th>
+                                <th className="border border-gray-700 px-3 py-2">Balance</th>
                                 <th className="border border-gray-700 px-3 py-2">Date</th>
                                 <th className="border border-gray-700 px-3 py-2">Action</th>
                             </tr>
@@ -97,12 +109,13 @@ export default function ReportPage() {
                                     </td>
                                 </tr>
                             ) : (
-                                reports.map((report) => (
+                                reports.map((report, index) => (
                                     <tr key={report.id} className="hover:bg-gray-800">
-                                        <td className="border border-gray-700 px-3 py-2">{report.id}</td>
+                                        <td className="border border-gray-700 px-3 py-2 text-center">{index + 1}</td>
                                         <td className="border border-gray-700 px-3 py-2">{report.title}</td>
-                                        <td className="border border-gray-700 px-3 py-2">{report.income}</td>
-                                        <td className="border border-gray-700 px-3 py-2">{report.expense}</td>
+                                        <td className="border border-gray-700 px-3 py-2">{formatCurrency(report.income)}</td>
+                                        <td className="border border-gray-700 px-3 py-2">{formatCurrency(report.expense)}</td>
+                                        <td className="border border-gray-700 px-3 py-2">{formatCurrency(report.balance)}</td>
                                         <td className="border border-gray-700 px-3 py-2">{new Date(report.report_date).toLocaleDateString()}</td>
                                         <td className="border border-gray-700 px-3 py-2 space-x-2">
                                             <button onClick={() => openModal("detail", report)} className="px-3 py-1 bg-purple-500 hover:bg-purple-600 text-white rounded">
@@ -140,14 +153,18 @@ export default function ReportPage() {
                                         <b>Expense:</b> {formData.expense}
                                     </p>
                                     <p>
+                                        <b>Balance:</b> {formData.balance}
+                                    </p>
+                                    <p>
                                         <b>Date:</b> {formData.report_date}
                                     </p>
                                 </div>
                             ) : (
                                 <form className="space-y-3">
                                     <input type="text" placeholder="Title" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} className="w-full p-2 rounded bg-gray-700 text-white" />
-                                    <input type="number" placeholder="Income" value={formData.income} onChange={(e) => setFormData({ ...formData, income: Number(e.target.value) })} className="w-full p-2 rounded bg-gray-700 text-white" />
-                                    <input type="number" placeholder="Expense" value={formData.expense} onChange={(e) => setFormData({ ...formData, expense: Number(e.target.value) })} className="w-full p-2 rounded bg-gray-700 text-white" />
+                                    <input type="text" placeholder="Income" value={formData.income ? formatCurrency(formData.income) : 0} onChange={(e) => setFormData({ ...formData, income: parseCurrency(e.target.value) })} className="w-full p-2 rounded bg-gray-700 text-white" />
+
+                                    <input type="text" placeholder="Expense" value={formData.expense ? formatCurrency(formData.expense) : 0} onChange={(e) => setFormData({ ...formData, expense: parseCurrency(e.target.value) })} className="w-full p-2 rounded bg-gray-700 text-white" />
                                     <input type="date" value={formData.report_date} onChange={(e) => setFormData({ ...formData, report_date: e.target.value })} className="w-full p-2 rounded bg-gray-700 text-white" />
                                 </form>
                             )}

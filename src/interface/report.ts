@@ -3,6 +3,7 @@ export interface Report {
     title: string;
     income: number;
     expense: number;
+    balance: number;
     report_date: string;
     createdAt?: string;
 }
