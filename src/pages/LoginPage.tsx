@@ -17,20 +17,20 @@ const LoginPage = () => {
 
     return (
         <div className="min-h-screen flex flex-col bg-gray-900 md:flex-row">
-            <div className="hidden md:flex w-1/2  text-white flex-col items-center justify-center p-12 gap-4">
-                <div className="grid grid-cols-2 gap-4">
+            <div className="hidden md:flex w-1/2  text-white flex-col items-center justify-center p-12 gap-4 rotate-45">
+                <div className="grid grid-cols-2 gap-4 ">
                     <div className=""></div>
                     <div className="bg-purple-400 p-6 rounded-lg flex items-center justify-center aspect-square">
-                        <span className="text-xl font-bold">Login</span>
+                        <span className="text-xl font-bold rotate-315">Login</span>
                     </div>
                     <div className="bg-purple-400 p-6 rounded-lg flex items-center justify-center aspect-square">
-                        <span className="text-xl font-bold">Register</span>
+                        <span className="text-xl font-bold rotate-315">Register</span>
                     </div>
                     <div className="bg-purple-400 p-6 rounded-lg flex items-center justify-center aspect-square">
-                        <span className="text-xl font-bold">CRUD Report</span>
+                        <span className="text-xl font-bold rotate-315">CRUD Report</span>
                     </div>
                     <div className="bg-purple-400 p-6 rounded-lg flex items-center justify-center aspect-square">
-                        <span className="text-xl font-bold">Compare Text</span>
+                        <span className="text-xl font-bold rotate-315">Compare Text</span>
                     </div>
                     <div className=""></div>
                 </div>
